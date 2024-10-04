@@ -1,9 +1,76 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { CelestialBody, SolarSystem } from './SolarSystem.js';
+import { texture } from 'three/webgpu';
 
 let scene, camera, renderer, controls;
 let solarSystem;
+
+let CelestialBodies = [
+  {
+    name : 'Sun',
+    radius : 5,
+    textureUrl : 'orange',
+    orbitRadius : 0,
+    orbitSpeed : 0
+  },
+  {
+    name : 'Mercury',
+    radius : 0.8,
+    textureUrl : 'red' , 
+    orbitRadius : 10 , 
+    orbitSpeed : 0.02
+  },
+  {
+    name : 'Venus',
+    radius : 1,
+    textureUrl : 'green' , 
+    orbitRadius : 14.5 , 
+    orbitSpeed : 0.017
+  },
+  {
+    name : 'Earth',
+    radius : 1.2,
+    textureUrl : 'blue' , 
+    orbitRadius : 19 , 
+    orbitSpeed : 0.015
+  },
+  {
+    name : 'Mars',
+    radius : 0.9,
+    textureUrl : 'orangered' , 
+    orbitRadius : 23.5 , 
+    orbitSpeed : 0.013
+  },
+  {
+    name : 'Jupiter',
+    radius : 1.7,
+    textureUrl : 'violet' , 
+    orbitRadius : 28   , 
+    orbitSpeed : 0.01
+  },
+  {
+    name : 'Saturn',
+    radius : 1.4,
+    textureUrl : 'yellow' , 
+    orbitRadius : 32.5 , 
+    orbitSpeed : 0.007
+  },
+  {
+    name : 'Uranus',
+    radius : 1.5,
+    textureUrl : 'seagreen' , 
+    orbitRadius : 37 , 
+    orbitSpeed : 0.004
+  },
+  {
+    name : 'Neptune',
+    radius : 1.2,
+    textureUrl : 'rebeccapurple' , 
+    orbitRadius : 41.5 , 
+    orbitSpeed : 0.003
+  },
+]
 
 function init() {
     // Create scene
@@ -37,15 +104,10 @@ function init() {
     solarSystem = new SolarSystem(scene);
 
     // Add celestial bodies
-    solarSystem.addBody(new CelestialBody('Sun', 5, 'orange', 0, 0));
-    solarSystem.addBody(new CelestialBody('Mercury', 0.5, 'red', 10, 0.02));
-    solarSystem.addBody(new CelestialBody('Venus', 0.8, 'blue', 15, 0.017));
-    solarSystem.addBody(new CelestialBody('Earth', 1, 'brown', 20, 0.014));
-    solarSystem.addBody(new CelestialBody('Mars', 0.7, 'violet', 25, 0.012));
-    solarSystem.addBody(new CelestialBody('Jupiter', 2, 'green', 30, 0.009));
-    solarSystem.addBody(new CelestialBody('Saturn', 1.8, 'skyblue', 35, 0.006));
-    solarSystem.addBody(new CelestialBody('Uranus', 1.5, 'rebeccapurple', 40, 0.004));
-    solarSystem.addBody(new CelestialBody('Neptune', 1.3, 'lightgreen', 45, 0.002));
+    CelestialBodies.forEach((planet) => {
+      console.log(planet);
+      solarSystem.addBody(new CelestialBody(planet.name , planet.radius , planet.textureUrl , planet.orbitRadius , planet.orbitSpeed))
+    })
 
     // Handle window resize
     window.addEventListener('resize', onWindowResize, false);

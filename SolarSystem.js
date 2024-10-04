@@ -9,7 +9,7 @@ class CelestialBody {
         this.orbitSpeed = orbitSpeed;
         this.angle = 0;
 
-        const geometry = new THREE.SphereGeometry(radius, 32, 32);
+        const geometry = new THREE.SphereGeometry(radius, 64, 64);
         // const texture = new THREE.TextureLoader().load(textureUrl);
         // texture.wrapS = THREE.RepeatWrapping;
         // texture.wrapT = THREE.RepeatWrapping;
@@ -32,8 +32,8 @@ class CelestialBody {
         if (this.angle >= Math.PI * 2) {
             this.angle -= Math.PI * 2;
         }
-        const x = Math.cos(this.angle) * this.orbitRadius;
-        const z = Math.sin(this.angle) * this.orbitRadius;
+        const x = Math.sin(this.angle) * this.orbitRadius;
+        const z = Math.cos(this.angle) * this.orbitRadius;
         this.mesh.position.set(x, 0, z);
     }
 }
